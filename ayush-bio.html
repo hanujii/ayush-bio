@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayush Gupta — Builder & Pharmacist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0f0f;
+    --ink-muted: #5a5a5a;
+    --ink-faint: #a8a8a8;
+    --paper: #f8f6f1;
+    --paper-warm: #f0ede6;
+    --rule: rgba(15,15,15,0.1);
+    --accent: #c8a96e;
+    --accent-soft: rgba(200,169,110,0.12);
+    --red: #c94040;
+    --sans: 'DM Sans', sans-serif;
+    --serif: 'Playfair Display', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 56px 0 0;
+    position: relative;
+  }
+
+  .header-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .header-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .profile-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--paper-warm);
+    box-shadow: 0 0 0 1px var(--rule);
+    display: block;
+    background: var(--paper-warm);
+  }
+
+  .avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #e8e0d0, #d5cfc4);
+    border: 3px solid var(--paper-warm);
+    box-shadow: 0 0 0 1px var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 32px;
+    color: var(--ink-muted);
+    font-weight: 400;
+    letter-spacing: -1px;
+  }
+
+  .status-dot {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #4caf72;
+    border: 2px solid var(--paper);
+  }
+
+  .header-info {
+    flex: 1;
+    padding-top: 6px;
+  }
+
+  .name {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .name em {
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+
+  .handle {
+    font-size: 13px;
+    color: var(--ink-faint);
+    font-weight: 300;
+    margin-bottom: 14px;
+    letter-spacing: 0.01em;
+  }
+
+  .handle a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .handle a:hover { color: var(--ink); }
+
+  .tagline {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-muted);
+    font-weight: 300;
+    max-width: 360px;
+  }
+
+  /* ── TAGS ── */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 28px 0 40px;
+  }
+
+  .tag {
+    font-size: 11.5px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--rule);
+    color: var(--ink-muted);
+    background: transparent;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .tag:hover {
+    border-color: var(--accent);
+    color: var(--ink);
+    background: var(--accent-soft);
+  }
+
+  .tag.accent {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: #8b6b2e;
+  }
+
+  /* ── DIVIDER ── */
+  .rule {
+    height: 1px;
+    background: var(--rule);
+    margin: 0 0 40px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 24px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 520px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  .project-card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 24px 22px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+
+  .project-card:hover {
+    border-color: rgba(15,15,15,0.22);
+    transform: translateY(-2px);
+  }
+
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 16px;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: transparent;
+    transition: background 0.25s;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .project-card:hover::before { background: var(--accent); }
+  .project-card.featured::before { background: var(--accent); }
+
+  .project-num {
+    font-family: var(--serif);
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-muted);
+    font-weight: 300;
+  }
+
+  .project-badge {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  .badge-live {
+    background: rgba(76,175,114,0.12);
+    color: #2e7d4f;
+    border: 1px solid rgba(76,175,114,0.25);
+  }
+
+  .badge-building {
+    background: var(--accent-soft);
+    color: #8b6b2e;
+    border: 1px solid rgba(200,169,110,0.3);
+  }
+
+  .badge-concept {
+    background: rgba(90,90,90,0.08);
+    color: var(--ink-muted);
+    border: 1px solid var(--rule);
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .stack-chip {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    background: var(--paper-warm);
+    border-radius: 4px;
+    color: var(--ink-muted);
+    font-weight: 400;
+  }
+
+  .project-arrow {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    font-size: 15px;
+    color: var(--ink-faint);
+    transition: all 0.2s;
+  }
+
+  .project-card:hover .project-arrow {
+    color: var(--ink);
+    transform: translate(2px, -2px);
+  }
+
+  /* ── SOCIAL LINKS ── */
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 48px;
+  }
+
+  .social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 18px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--ink);
+    background: white;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .social-link:hover {
+    border-color: rgba(15,15,15,0.2);
+    transform: translateY(-2px);
+  }
+
+  .social-icon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .social-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--ink-muted);
+    transition: fill 0.2s;
+  }
+
+  .social-link:hover .social-icon svg { fill: var(--ink); }
+
+  .social-name {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    transition: color 0.2s;
+  }
+
+  .social-link:hover .social-name { color: var(--ink); }
+
+  /* ── CONTACT ── */
+  .contact-block {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .contact-left { flex: 1; min-width: 200px; }
+
+  .contact-heading {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .contact-heading em { font-style: italic; }
+
+  .contact-sub {
+    font-size: 13px;
+    color: var(--ink-muted);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .contact-btn:hover {
+    background: #2a2a2a;
+    transform: translateY(-1px);
+  }
+
+  .contact-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 28px 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-sig {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+
+  .footer-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    vertical-align: middle;
+    margin: 0 4px;
+  }
+
+  .footer-note {
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    font-weight: 300;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+  .delay-6 { animation-delay: 0.6s; }
+
+  @media (max-width: 480px) {
+    .name { font-size: 28px; }
+    .profile-row { gap: 20px; }
+    .avatar-placeholder { width: 76px; height: 76px; font-size: 26px; }
+    .social-grid { grid-template-columns: repeat(3, 1fr); }
+    header { padding-top: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="fade-up">
+    <div class="header-eyebrow">Ayush Gupta &nbsp;·&nbsp; Portfolio</div>
+
+    <div class="profile-row">
+      <div class="avatar-wrap">
+        <div class="avatar-placeholder">AG</div>
+        <span class="status-dot" title="Open to work"></span>
+      </div>
+      <div class="header-info">
+        <h1 class="name">Ayush <em>Gupta</em></h1>
+        <p class="handle">
+          <a href="https://instagram.com/wakeupayuush" target="_blank">@wakeupayuush</a>
+        </p>
+        <p class="tagline">Pharma grad by training, builder by obsession — bridging healthcare & technology, one project at a time.</p>
+      </div>
+    </div>
+
+    <div class="tag-row fade-up delay-1">
+      <span class="tag accent">B.Pharm → M.Pharma</span>
+      <span class="tag">Pharmacovigilance</span>
+      <span class="tag">Clinical Research</span>
+      <span class="tag">Solo Dev</span>
+      <span class="tag">AI × Fashion</span>
+      <span class="tag">Raipur / Indore</span>
+    </div>
+  </header>
+
+  <div class="rule fade-up delay-2"></div>
+
+  <!-- PROJECTS -->
+  <section class="fade-up delay-2">
+    <p class="section-label">Selected Projects</p>
+
+    <div class="projects-grid">
+
+      <!-- Featured: Drip.ing -->
+      <a class="project-card featured" href="#" target="_blank">
+        <div>
+          <p class="project-num">No. 01</p>
+          <h3 class="project-title">Drip.ing</h3>
+          <p class="project-desc">An AI-powered fashion styling app built for Indian Gen Z. Upload your wardrobe, get styled by LLaMA 3.3 — your personal Style DNA, daily outfit drops, and curated affiliate picks.</p>
+          <div class="project-stack">
+            <span class="stack-chip">Next.js 14</span>
+            <span class="stack-chip">TypeScript</span>
+            <span class="stack-chip">Supabase</span>
+            <span class="stack-chip">Groq / LLaMA</span>
+            <span class="stack-chip">Tailwind CSS</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
+          <span class="project-badge badge-building">Building</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <!-- Project 2: PadhLoYaarAI -->
+      <a class="project-card featured" href="https://github.com/hanujii/PadhLoYaarAI" target="_blank">
+        <div>
+          <p class="project-num">No. 02</p>
+          <h3 class="project-title">Padh Lo Yaar</h3>
+          <p class="project-desc">A full AI study toolbox — chat with PDFs, solve questions from images, generate exams, get voice-enabled tutoring, and write on an infinite whiteboard. 10+ tools, one app, built for students who mean business.</p>
+          <div class="project-stack">
+            <span class="stack-chip">Next.js 14</span>
+            <span class="stack-chip">Gemini Pro</span>
+            <span class="stack-chip">Tailwind CSS</span>
+            <span class="stack-chip">shadcn/ui</span>
+            <span class="stack-chip">Zustand</span>
+            <span class="stack-chip">tldraw</span>
+            <span class="stack-chip">TipTap</span>
+            <span class="stack-chip">Monaco Editor</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
+          <span class="project-badge badge-live">Open Source</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <p class="project-num">No. 03</p>
+        <h3 class="project-title">PV Research</h3>
+        <p class="project-desc">Pharmacovigilance operations & signal detection — combining clinical background with data-driven safety monitoring.</p>
+        <div class="project-stack">
+          <span class="stack-chip">IQVIA</span>
+          <span class="stack-chip">Safety Data</span>
+        </div>
+        <span class="project-badge badge-live" style="display:inline-block;margin-top:14px;">Active</span>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card">
+        <p class="project-num">No. 04</p>
+        <h3 class="project-title">M.Pharma</h3>
+        <p class="project-desc">Postgraduate research in Pharmaceutical Chemistry — spectroscopy, computational chemistry, and ADMET prediction.</p>
+        <div class="project-stack">
+          <span class="stack-chip">Pharma Chem</span>
+          <span class="stack-chip">ADMET</span>
+        </div>
+        <span class="project-badge badge-concept" style="display:inline-block;margin-top:14px;">In Progress</span>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="rule fade-up delay-3"></div>
+
+  <!-- SOCIAL LINKS -->
+  <section class="fade-up delay-3">
+    <p class="section-label">Find Me Online</p>
+
+    <div class="social-grid">
+
+      <a class="social-link" href="https://instagram.com/wakeupayuush" target="_blank">
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </span>
+        <span class="social-name">Instagram</span>
+      </a>
+
+      <a class="social-link" href="https://www.linkedin.com/in/ayush-gupta-creative/" target="_blank">
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </span>
+        <span class="social-name">LinkedIn</span>
+      </a>
+
+      <a class="social-link" href="https://github.com/hanujii" target="_blank">
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </span>
+        <span class="social-name">GitHub</span>
+      </a>
+
+      <a class="social-link" href="https://twitter.com/hanu3040" target="_blank">
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </span>
+        <span class="social-name">X / Twitter</span>
+      </a>
+
+      <a class="social-link" href="/cdn-cgi/l/email-protection#88e9f1fdfbe0effdf8fce9a6ebfaede9fce1feedc8efe5e9e1e4a6ebe7e5">
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.907 1.528-1.148C21.69 2.28 24 3.434 24 5.457z"/>
+          </svg>
+        </span>
+        <span class="social-name">Email</span>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="rule fade-up delay-4"></div>
+
+  <!-- CONTACT -->
+  <section class="fade-up delay-4">
+    <div class="contact-block">
+      <div class="contact-left">
+        <h2 class="contact-heading">Let's build<br><em>something together</em></h2>
+        <p class="contact-sub">Open to pharma–tech collabs, CDM roles, PV ops, and anything at the intersection of healthcare + code.</p>
+      </div>
+      <a class="contact-btn" href="/cdn-cgi/l/email-protection#5839212d2b303f2d282c39763b2a3d392c312e3d183f35393134763b3735">
+        <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.907 1.528-1.148C21.69 2.28 24 3.434 24 5.457z"/></svg>
+        Say hello
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="fade-up delay-5">
+    <span class="footer-sig">Ayush Gupta <span class="footer-dot"></span> 2025</span>
+    <span cl
