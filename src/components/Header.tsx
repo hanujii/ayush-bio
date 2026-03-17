@@ -38,8 +38,8 @@ export default function Header() {
           'Pharmacovigilance',
           'Clinical Research',
           'Solo Dev',
-          'AI × Fashion',
-          'Raipur / Indore'
+          'AI',
+          'Raipur / Bhilai'
         ].map((tag) => (
           <span key={tag} className="text-[11.5px] font-normal tracking-[0.04em] px-3 py-1.25 rounded-[20px] border border-black/10 text-ink-muted bg-transparent cursor-default transition-all hover:border-accent hover:text-ink">
             {tag}

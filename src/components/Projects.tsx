@@ -67,7 +67,7 @@ function ProjectCard({ project }: { project: Project }) {
         bg-white/70 backdrop-blur-md border border-white/40 rounded-[20px] p-7
         relative overflow-hidden transition-all duration-400 cubic-bezier(0.23, 1, 0.32, 1)
         shadow-[0_4px_24px_rgba(0,0,0,0.02)]
-        ${project.link ? 'hover:translate-y-[-4px] hover:scale-[1.01] hover:bg-white hover:border-accent hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]' : ''}
+        hover:translate-y-[-4px] hover:scale-[1.01] hover:bg-white hover:border-accent hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]
         grid grid-cols-[1fr_auto] gap-5
       `}
     >
